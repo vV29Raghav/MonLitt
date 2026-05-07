@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sidebar-w: 260px;
+    --topbar-h: 64px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  }
+}
+
+@layer components {
+  /* Page animation */
+  .page-enter {
+    animation: fadeUp 0.3s ease forwards;
+  }
+
+  /* Sidebar nav active glow */
+  .nav-active {
+    @apply bg-brand-500/10 text-brand-400;
+  }
+
+  /* Chart bar animation */
+  .chart-bar {
+    transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      theme('colors.slate.100') 25%,
+      theme('colors.slate.200') 50%,
+      theme('colors.slate.100') 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .dark .skeleton {
+    background: linear-gradient(
+      90deg,
+      theme('colors.slate.800') 25%,
+      theme('colors.slate.700') 50%,
+      theme('colors.slate.800') 75%
+    );
+    background-size: 200% 100%;
+  }
+
+  /* Card hover */
+  .card-hover {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:border-brand-400/50;
+  }
+
+  /* Split type tab */
+  .split-tab-active {
+    @apply bg-white dark:bg-slate-800 text-brand-500 shadow-sm;
+  }
+
+  /* Toggle */
+  .toggle-thumb {
+    transition: transform 0.2s ease;
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* Layout */
+.app-sidebar {
+  width: var(--sidebar-w) !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  height: 100vh;
+  z-index: 50;
+  transform: none !important; /* Prevent translations from breaking layout on desktop */
+}
+
+@media (max-width: 768px) {
+  .app-sidebar {
+    position: fixed !important;
+    transform: translateX(-100%) !important;
+  }
+  .app-sidebar.open {
+    transform: translateX(0) !important;
+  }
+}
+
+.main-content {
+  flex: 1 !important;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-page, #f8fafc);
+  overflow-x: hidden;
+}
+
+/* Mobile sidebar overlay */
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    @apply fixed inset-0 bg-black/50 z-40 backdrop-blur-sm;
+  }
+}
+
+/* Responsive Grids */
+@media (max-width: 1024px) {
+  .responsive-2col {
+    grid-template-columns: 1fr !important;
+  }
+  .responsive-3col {
+    grid-template-columns: 1fr !important;
+  }
+  .responsive-sidebar {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -1,0 +1,41 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+.env.local
+
+# logs
+logs/
+*.log
+npm-debug.log*
+
+# temporary files
+tmp/
+temp/
+uploads/
+
+# build output
+dist/
+build/
+
+# database files
+*.sqlite
+*.db
+
+# testing
+coverage/
+.nyc_output/
+
+# process files
+*.pid
+*.seed
+*.pid.lock
+
+# editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
